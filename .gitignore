@@ -1,0 +1,14 @@
+*.pyc
+*.vim
+*.swp
+*.py~
+*.html~
+*.txt~
+.DS_Store
+pip-log.txt
+build
+dist
+*.egg-info
+*.db
+*.tar.gz
+demo/themes/*
