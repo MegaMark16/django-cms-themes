@@ -11,17 +11,21 @@ from cms_themes import set_themes
 
 class Theme(models.Model):
     sites = models.ManyToManyField(Site, null=True, blank=True)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, blank=True)
     theme_file = models.FileField(upload_to='themes_archives', null=True)
     
     class Meta:
         verbose_name = "Theme"
         verbose_name_plural = "Themes"
 
+    def __unicode__(self):
+        return self.name
+
 def extract_theme(sender, **kwargs):
     instance = kwargs['instance']
     if not instance.id:
         f = tarfile.open(fileobj=instance.theme_file, mode='r:gz')
+        instance.name = f.getnames()[-1]
         f.extractall(settings.THEMES_DIR)
     set_themes()
     

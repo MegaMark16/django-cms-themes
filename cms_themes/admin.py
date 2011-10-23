@@ -7,6 +7,6 @@ class ThemeAdmin(admin.ModelAdmin):
     list_display_links = ('id','name',)
     list_filter = ('name',)
     filter_horizontal = ('sites',)
-    
+    readonly_fields = ('name',)
 admin.site.register(Theme, ThemeAdmin)
 

@@ -17,7 +17,9 @@ else:
     setattr(settings, 'THEMES_DIR', THEMES_DIR)
 if not hasattr(settings, 'DEFAULT_CMS_TEMPLATES'):
     setattr(settings, 'DEFAULT_CMS_TEMPLATES', settings.CMS_TEMPLATES)
-    
+if settings.THEMES_DIR not in settings.TEMPLATE_DIRS:
+    settings.TEMPLATE_DIRS = settings.TEMPLATE_DIRS + (settings.THEMES_DIR,)
+
 def set_themes():
     try:
         site = Site.objects.get(id=settings.SITE_ID)
@@ -32,7 +34,7 @@ def set_themes():
             if 'templates' in os.listdir(theme_full_path):
                 template_path = os.path.join(theme_full_path, 'templates')
                 for template in os.listdir(template_path):
-                    template_path = os.path.join('themes', theme_dir, 'templates', template)
+                    template_path = os.path.join(theme_dir, 'templates', template)
                     theme_templates.append((template_path, '%s (%s)' % (template, theme_dir)))
     
     setattr(settings, 'CMS_TEMPLATES', tuple(theme_templates) + settings.DEFAULT_CMS_TEMPLATES)
