@@ -15,7 +15,7 @@ setup(
     url = 'http://github.com/megamark16/django-cms-themes',
     license = 'BSD',
     platforms=['OS Independent'],
-    description = "",
+    description = "Load prepackaged themes (templates and accompanying media) into Django CMS projects through the admin",
     author = "Mark Ransom",
     author_email = 'megamark16@gmail.com',
     packages=find_packages(),
@@ -23,7 +23,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     classifiers = [
-        'Development Status :: 5 - Production/Stable',
+        'Development Status :: 3 - Alpha',
         'Framework :: Django',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',

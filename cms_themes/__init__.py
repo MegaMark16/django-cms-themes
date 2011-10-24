@@ -1,24 +1,26 @@
-VERSION = (1,0,0)
-__version__ = "1.0.0"
+VERSION = (1,0,2)
+__version__ = "1.0.2"
 import random 
 import os
 
 from django.conf import settings
-from django.contrib.sites.models import Site
-from cms.conf.patch import post_patch
 
-PROJECT_DIR = settings.PROJECT_DIR
-if hasattr(settings, 'THEMES_DIR'):
-    THEMES_DIR = settings.THEMES_DIR
-else:
-    THEMES_DIR = os.path.join(PROJECT_DIR, 'themes')
-    if not os.path.exists(THEMES_DIR):
-        os.makedirs(THEMES_DIR)
-    setattr(settings, 'THEMES_DIR', THEMES_DIR)
-if not hasattr(settings, 'DEFAULT_CMS_TEMPLATES'):
-    setattr(settings, 'DEFAULT_CMS_TEMPLATES', settings.CMS_TEMPLATES)
-if settings.THEMES_DIR not in settings.TEMPLATE_DIRS:
-    settings.TEMPLATE_DIRS = settings.TEMPLATE_DIRS + (settings.THEMES_DIR,)
+def init_themes():
+    from django.contrib.sites.models import Site
+    from cms.conf.patch import post_patch
+
+    if not hasattr(settings, 'THEMES_DIR'):
+        THEMES_DIR = os.path.join(settings.PROJECT_DIR, 'themes')
+        if not os.path.exists(THEMES_DIR):
+            os.makedirs(THEMES_DIR)
+        settings.STATICFILES_DIRS = (
+            ('themes', os.path.join(settings.PROJECT_DIR, "themes")),
+        ) + settings.STATICFILES_DIRS
+        setattr(settings, 'THEMES_DIR', THEMES_DIR)
+    if not hasattr(settings, 'DEFAULT_CMS_TEMPLATES'):
+        setattr(settings, 'DEFAULT_CMS_TEMPLATES', settings.CMS_TEMPLATES)
+    if settings.THEMES_DIR not in settings.TEMPLATE_DIRS:
+        settings.TEMPLATE_DIRS = settings.TEMPLATE_DIRS + (settings.THEMES_DIR,)
 
 def set_themes():
     try:
@@ -28,9 +30,9 @@ def set_themes():
         themes = []
     theme_templates = []
     
-    for theme_dir in os.listdir(THEMES_DIR):
+    for theme_dir in os.listdir(settings.THEMES_DIR):
         if theme_dir in themes or not themes:
-            theme_full_path = os.path.join(THEMES_DIR, theme_dir)
+            theme_full_path = os.path.join(settings.THEMES_DIR, theme_dir)
             if 'templates' in os.listdir(theme_full_path):
                 template_path = os.path.join(theme_full_path, 'templates')
                 for template in os.listdir(template_path):
@@ -39,4 +41,8 @@ def set_themes():
     
     setattr(settings, 'CMS_TEMPLATES', tuple(theme_templates) + settings.DEFAULT_CMS_TEMPLATES)
 
-set_themes()
+try:
+    init_themes()
+    set_themes()
+except ImportError:
+    pass
