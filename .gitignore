@@ -12,3 +12,4 @@ dist
 *.db
 *.tar.gz
 demo/themes/*
+demo/media/themes_archives/
