@@ -5,8 +5,8 @@ A django app that lets you load theme packs that are bundled templates, and sele
 Dependancies
 ============
 
-- django
-- django-cms
+- django (tested with 1.3)
+- django-cms (tested with 2.2)
 
 Getting Started
 =============
