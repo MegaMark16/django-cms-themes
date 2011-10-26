@@ -41,7 +41,10 @@ Simply create a new Theme record and upload a theme tarball (tar.gz) file from d
 Here are some example themes: 
 
 http://www.ransomsoft.com/themes/red.tar.gz
+
 http://www.ransomsoft.com/themes/simple.tar.gz
+
 http://www.ransomsoft.com/themes/summer.tar.gz
+
 http://www.ransomsoft.com/themes/blankandwhite.tar.gz
 
