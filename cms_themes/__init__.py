@@ -3,8 +3,6 @@ __version__ = "1.0.3"
 import random 
 import os
 
-from django.conf import settings
-
 def init_themes():
     from django.contrib.sites.models import Site
     from cms.conf.patch import post_patch
@@ -33,15 +31,17 @@ def set_themes():
     for theme_dir in os.listdir(settings.THEMES_DIR):
         if theme_dir in themes or not themes:
             theme_full_path = os.path.join(settings.THEMES_DIR, theme_dir)
-            if 'templates' in os.listdir(theme_full_path):
+            if os.path.isdir(theme_full_path) and 'templates' in os.listdir(theme_full_path):
                 template_path = os.path.join(theme_full_path, 'templates')
                 for template in os.listdir(template_path):
                     template_path = os.path.join(theme_dir, 'templates', template)
-                    theme_templates.append((template_path, '%s (%s)' % (template, theme_dir)))
+                    template_display = '%s (%s)' % (template.replace('_', ' ').title().split('.')[0], theme_dir)
+                    theme_templates.append((template_path, template_display))
     
     setattr(settings, 'CMS_TEMPLATES', tuple(theme_templates) + settings.DEFAULT_CMS_TEMPLATES)
 
 try:
+    from django.conf import settings
     init_themes()
     set_themes()
 except ImportError:
