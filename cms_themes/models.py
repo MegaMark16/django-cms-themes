@@ -31,7 +31,10 @@ def extract_theme(sender, **kwargs):
     
 def update_themes(sender, **kwargs):
     instance = kwargs['instance']
-    shutil.rmtree(os.path.join(settings.THEMES_DIR, instance.name))
+    try:
+        shutil.rmtree(os.path.join(settings.THEMES_DIR, instance.name))
+    except OSError: 
+        pass
     set_themes()
 
 pre_save.connect(extract_theme, sender=Theme)
