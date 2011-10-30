@@ -13,3 +13,7 @@ dist
 *.tar.gz
 demo/themes/*
 demo/media/themes_archives/
+demo/cms_themes
+demo/database.sqlite
+demo/media
+demo/static
