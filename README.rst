@@ -29,6 +29,8 @@ Your installed apps should look something like this:
 	    'cms',
 	    'cms_themes',
 	)
+	
+Make sure that you have a setting in your settings file called PROJECT_DIR that points to the root of your project, i.e. PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
 
 Usage
 =============
