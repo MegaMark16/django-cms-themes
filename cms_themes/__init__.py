@@ -32,7 +32,13 @@ def set_themes():
         return
 
     site = Site.objects.get(id=settings.SITE_ID)
-    themes = [theme.name for theme in site.theme_set.all()]
+    themes = None
+
+    if hasattr(site, 'theme_set'):
+        try:
+            themes = [theme.name for theme in site.theme_set.all()]
+        except:
+            pass
 
     if not themes: 
         return
