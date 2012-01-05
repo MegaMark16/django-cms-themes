@@ -3,15 +3,8 @@ __version__ = "1.0.5"
 import random 
 import os
 
-try:
-    from django.conf import settings
-    from django.contrib.sites.models import Site
-    from cms.conf.patch import post_patch
-except:
-    pass
-    
 def init_themes():
-
+    print 'Initing themes'
     if not hasattr(settings, 'THEMES_DIR'):
         THEMES_DIR = os.path.join(settings.PROJECT_DIR, 'themes')
         if not os.path.exists(THEMES_DIR):
@@ -28,6 +21,7 @@ def init_themes():
         setattr(settings, 'DEFAULT_TEMPLATE_DIRS', settings.TEMPLATE_DIRS)
     
 def set_themes():
+    print 'Setting themes...'
     if not Site.objects.filter(id=settings.SITE_ID):
         return
 
@@ -57,7 +51,12 @@ def set_themes():
     setattr(settings, 'CMS_TEMPLATES', tuple(theme_templates) + settings.DEFAULT_CMS_TEMPLATES)
 
 try:
+    from django.conf import settings
+    from django.contrib.sites.models import Site
+    from cms.conf.patch import post_patch
+
     init_themes()
     set_themes()
-except ImportError:
-    pass
+except Exception as ex:
+    print ex
+
