@@ -1,10 +1,9 @@
-VERSION = (1,0,7)
-__version__ = "1.0.7"
+VERSION = (1,0,8)
+__version__ = "1.0.8"
 import random 
 import os
 
 def init_themes():
-    print 'Initing themes'
     if not hasattr(settings, 'THEMES_DIR'):
         THEMES_DIR = os.path.join(settings.PROJECT_DIR, 'themes')
         if not os.path.exists(THEMES_DIR):
@@ -21,7 +20,6 @@ def init_themes():
         setattr(settings, 'DEFAULT_TEMPLATE_DIRS', settings.TEMPLATE_DIRS)
     
 def set_themes():
-    print 'Setting themes...'
     if not Site.objects.filter(id=settings.SITE_ID):
         return
 
@@ -58,5 +56,5 @@ try:
     init_themes()
     set_themes()
 except Exception as ex:
-    print ex
+    print 'An error occured setting up the themes: %s' % ex
 
