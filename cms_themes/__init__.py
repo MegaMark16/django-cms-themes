@@ -56,6 +56,7 @@ try:
     from django.conf import settings
     from django.contrib.sites.models import Site
     from cms.conf.patch import post_patch
+    from cms_themes.models import Theme
 
     init_themes()
     set_themes()
