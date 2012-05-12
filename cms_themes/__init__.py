@@ -1,6 +1,6 @@
 VERSION = (1,0,8)
 __version__ = "1.0.8"
-import random 
+import random
 import os
 
 def init_themes():
@@ -18,7 +18,9 @@ def init_themes():
         settings.TEMPLATE_DIRS = settings.TEMPLATE_DIRS + (settings.THEMES_DIR,)
     if not hasattr(settings, 'DEFAULT_TEMPLATE_DIRS'):
         setattr(settings, 'DEFAULT_TEMPLATE_DIRS', settings.TEMPLATE_DIRS)
-    
+    if not hasattr(settings, 'DEFAULT_STATICFILES_DIRS'):
+        setattr(settings, 'DEFAULT_STATICFILES_DIRS', settings.STATICFILES_DIRS)
+
 def set_themes():
     if not Site.objects.filter(id=settings.SITE_ID):
         return
@@ -32,10 +34,11 @@ def set_themes():
         except:
             pass
 
-    if not themes: 
+    if not themes:
         return
 
     theme_templates = []
+    theme_static = []
     for theme_dir in os.listdir(settings.THEMES_DIR):
         if theme_dir in themes:
             theme_full_path = os.path.join(settings.THEMES_DIR, theme_dir)
@@ -45,13 +48,15 @@ def set_themes():
                 for template in os.listdir(template_path):
                     template_display = '%s (%s)' % (template.replace('_', ' ').title().split('.')[0], theme_dir)
                     theme_templates.append((template, template_display))
-    
+
     setattr(settings, 'CMS_TEMPLATES', tuple(theme_templates) + settings.DEFAULT_CMS_TEMPLATES)
+    setattr(settings, 'STATICFILES_DIRS', (settings.THEMES_DIR,) + settings.DEFAULT_STATICFILES_DIRS)
 
 try:
     from django.conf import settings
     from django.contrib.sites.models import Site
     from cms.conf.patch import post_patch
+    from cms_themes.models import Theme
 
     init_themes()
     set_themes()
