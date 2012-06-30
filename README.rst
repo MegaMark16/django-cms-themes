@@ -2,7 +2,7 @@ django-cms-themes
 =================
 A django app that lets you load theme packs that are bundled templates, and select which theme a site should use.
 
-Dependancies
+Dependencies
 ============
 
 - django (tested with 1.3)
