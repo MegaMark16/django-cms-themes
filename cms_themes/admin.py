@@ -5,7 +5,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from django.db import models
 
 class ThemeAdmin(admin.ModelAdmin):
-    list_display = ('id','name',)
+    list_display = ('id','name','theme_file',)
     list_display_links = ('id','name',)
     list_filter = ('name',)
     filter_horizontal = ('sites',)
