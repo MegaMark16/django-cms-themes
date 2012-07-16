@@ -2,7 +2,7 @@ django-cms-themes
 =================
 A django app that lets you load theme packs that are bundled templates, and select which theme a site should use.
 
-Dependancies
+Dependencies
 ============
 
 - django (tested with 1.3)
@@ -15,7 +15,7 @@ To get started simply install using ``pip``:
 ::
     pip install django-cms-themes
 
-Add ``cms_themes`` to your installed apps and ``syncdb`` (or migrate, if you have south installed).
+Add ``'cms_themes',`` to your installed apps and ``syncdb`` (or migrate, if you have south installed).
 
 Your installed apps should look something like this:
 ::
@@ -30,7 +30,8 @@ Your installed apps should look something like this:
 	    'cms_themes',
 	)
 	
-Make sure that you have a setting in your settings file called PROJECT_DIR that points to the root of your project, i.e. PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
+You should have a setting in your settings file called PROJECT_DIR that points to the root of your project, i.e. ``PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))``
+If not, it will be assumed that your themes will live just beneath the ``MEDIA_ROOT``.
 
 Usage
 =============
