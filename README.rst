@@ -15,7 +15,7 @@ To get started simply install using ``pip``:
 ::
     pip install django-cms-themes
 
-Add ``cms_themes`` to your installed apps and ``syncdb`` (or migrate, if you have south installed).
+Add ``'cms_themes',`` to your installed apps and ``syncdb`` (or migrate, if you have south installed).
 
 Your installed apps should look something like this:
 ::
