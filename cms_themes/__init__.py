@@ -43,13 +43,12 @@ def set_themes():
         return
 
     theme_templates = []
-    theme_static = []
     for theme_dir in os.listdir(settings.THEMES_DIR):
         if theme_dir in themes:
             theme_full_path = os.path.join(settings.THEMES_DIR, theme_dir)
             if os.path.isdir(theme_full_path) and 'templates' in os.listdir(theme_full_path):
                 template_path = os.path.join(theme_full_path, 'templates')
-                setattr(settings, 'TEMPLATE_DIRS', (template_path,) + settings.DEFAULT_TEMPLATE_DIRS)
+                setattr(settings, 'TEMPLATE_DIRS', [template_path,] + settings.DEFAULT_TEMPLATE_DIRS)
                 for template in os.listdir(template_path):
                     template_display = '%s (%s)' % (template.replace('_', ' ').title().split('.')[0], theme_dir)
                     theme_templates.append((template, template_display))
