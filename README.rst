@@ -30,7 +30,8 @@ Your installed apps should look something like this:
 	    'cms_themes',
 	)
 	
-Make sure that you have a setting in your settings file called PROJECT_DIR that points to the root of your project, i.e. PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
+You should have a setting in your settings file called PROJECT_DIR that points to the root of your project, i.e. ``PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))``
+If not, it will be assumed that your themes will live just beneath the ``MEDIA_ROOT``.
 
 Usage
 =============
