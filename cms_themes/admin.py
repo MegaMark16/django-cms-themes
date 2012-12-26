@@ -3,13 +3,28 @@ from models import Theme
 from django.conf import settings
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.db import models
+from django import forms
+
+class ThemeAdminForm(forms.ModelForm):
+    class Meta:
+        model = Theme
+
+    def clean(self):
+        cleaned_data = super(ThemeAdminForm, self).clean()
+        name = cleaned_data.get("name")
+        theme_file = cleaned_data.get("theme_file")
+        if not name and not theme_file:
+            # at least one of the fields have to be present
+            raise forms.ValidationError(_('Choose at lease one of "Theme file" or "Name".'))
+        return cleaned_data
 
 class ThemeAdmin(admin.ModelAdmin):
     list_display = ('id','name',)
     list_display_links = ('id','name',)
     list_filter = ('name',)
     filter_horizontal = ('sites',)
-    readonly_fields = ('name',)
+    form = ThemeAdminForm
+#    readonly_fields = ('name',)
 admin.site.register(Theme, ThemeAdmin)
 
 from cms.models import Page

@@ -7,15 +7,18 @@ from django.conf import settings
 from django.db import models
 from django.contrib.sites.models import Site
 from django.db.models.signals import post_save, pre_save, post_delete, m2m_changed
+from django.utils.translation import ugettext, ugettext_lazy as _
 from cms_themes import set_themes
 
 class Theme(models.Model):
     sites = models.ManyToManyField(Site, null=True, blank=True)
-    name = models.CharField(max_length=255, blank=True)
-    theme_file = models.FileField(upload_to='themes_archives', null=True)
+    name = models.CharField(max_length=255, blank=True, help_text=_(
+        'Only set name if no theme file provided (should be consistent with directory name).'
+    ))
+    theme_file = models.FileField(upload_to='themes_archives', null=True, blank=True)
     
     def save(self, *args, **kwargs):
-        if not self.id:
+        if not self.id and not self.name:
             f = tarfile.open(fileobj=self.theme_file, mode='r:gz')
             self.name = f.getnames()[-1]
             f.extractall(settings.THEMES_DIR)

@@ -46,6 +46,8 @@ def set_themes():
                 template_path = os.path.join(theme_full_path, 'templates')
                 setattr(settings, 'TEMPLATE_DIRS', (template_path,) + settings.DEFAULT_TEMPLATE_DIRS)
                 for template in os.listdir(template_path):
+                    if '.' not in template:
+                        continue # skip directories
                     template_display = '%s (%s)' % (template.replace('_', ' ').title().split('.')[0], theme_dir)
                     theme_templates.append((template, template_display))
 
