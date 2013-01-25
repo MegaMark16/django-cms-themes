@@ -17,3 +17,4 @@ demo/cms_themes
 demo/database.sqlite
 demo/media
 demo/static
+.idea*
