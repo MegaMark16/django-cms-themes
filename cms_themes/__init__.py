@@ -5,8 +5,8 @@ import os
 
 def init_themes():
     if not hasattr(settings, 'THEMES_DIR'):
-        if hasattr(settings, 'PROJECT_DIR'):
-            THEMES_DIR = os.path.join(settings.PROJECT_DIR, 'themes')
+        if hasattr(settings, 'PROJECT_PATH'):
+            THEMES_DIR = os.path.join(settings.PROJECT_PATH, 'themes')
         elif hasattr(settings, 'PROJECT_HOME'):
             THEMES_DIR = os.path.join(settings.PROJECT_HOME, 'themes')
         else:
@@ -17,6 +17,8 @@ def init_themes():
             ('themes', THEMES_DIR),
         ) + settings.STATICFILES_DIRS
         setattr(settings, 'THEMES_DIR', THEMES_DIR)
+    if not hasattr(settings, 'CMS_TEMPLATES'):
+        setattr(settings, 'CMS_TEMPLATES', (('blank.html', 'Blank'),))
     if not hasattr(settings, 'DEFAULT_CMS_TEMPLATES'):
         setattr(settings, 'DEFAULT_CMS_TEMPLATES', settings.CMS_TEMPLATES)
     if settings.THEMES_DIR not in settings.TEMPLATE_DIRS:
@@ -59,7 +61,6 @@ def set_themes():
 try:
     from django.conf import settings
     from django.contrib.sites.models import Site
-    from cms.conf.patch import post_patch
     from cms_themes.models import Theme
 
     init_themes()

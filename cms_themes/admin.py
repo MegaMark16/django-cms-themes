@@ -21,4 +21,3 @@ template_choices = [(x, _(y)) for x,y in settings.CMS_TEMPLATES]
 t.choices.extend(template_choices)
 admin.site.register(Page, PageAdmin)
 
-
