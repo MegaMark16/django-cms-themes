@@ -2,7 +2,7 @@
 
 import os
 gettext = lambda s: s
-PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
+PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -16,12 +16,9 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(PROJECT_DIR, 'database.sqlite'),
+        'NAME': os.path.join(PROJECT_PATH, 'database.sqlite'),
     }
 }
-CMS_TEMPLATES = (
-    ('blank.html', 'Blank'),
-)
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -48,14 +45,14 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = os.path.join(PROJECT_DIR, "media")
+MEDIA_ROOT = os.path.join(PROJECT_PATH, "media")
 MEDIA_URL = "/media/"
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.join(PROJECT_DIR, "static")
+STATIC_ROOT = os.path.join(PROJECT_PATH, "static")
 STATIC_URL = "/static/"
 ADMIN_MEDIA_PREFIX = "/static/admin/"
 
@@ -109,9 +106,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 TEMPLATE_DIRS = (
-    # The docs say it should be absolute path: PROJECT_DIR is precisely one.
+    # The docs say it should be absolute path: PROJECT_PATH is precisely one.
     # Life is wonderful!
-    os.path.join(PROJECT_DIR, "templates"),
+    os.path.join(PROJECT_PATH, "templates"),
 )
 
 INSTALLED_APPS = (
@@ -121,21 +118,10 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
     'cms',
-    'cms.plugins.file',
-    'cms.plugins.picture',
-    'cms.plugins.flash',
-    'cms.plugins.googlemap',
-    'cms.plugins.link',
     'cms.plugins.snippet',
-    'cms.plugins.teaser',
     'cms.plugins.text',
-    'cms.plugins.video',
-    'cms.plugins.twitter',
     'mptt',
     'menus',
     'south',
@@ -144,7 +130,7 @@ INSTALLED_APPS = (
 )
 
 LANGUAGES = [
-    ('en', 'English'),
+    ('en-us', 'English'),
 ]
 
 # A sample logging configuration. The only tangible logging
