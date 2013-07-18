@@ -1,5 +1,5 @@
-VERSION = (1,0,10)
-__version__ = "1.0.10"
+VERSION = (1,0,11)
+__version__ = "1.0.11"
 import random
 import os
 
