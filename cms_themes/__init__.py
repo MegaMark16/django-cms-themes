@@ -65,6 +65,6 @@ try:
 
     init_themes()
     set_themes()
-except Exception, ex:
+except Exception as ex:
     print 'An error occured setting up the themes: %s' % ex
 
