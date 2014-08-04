@@ -1,5 +1,5 @@
 import tarfile
-import StringIO
+from io import StringIO
 import shutil
 import os
 
