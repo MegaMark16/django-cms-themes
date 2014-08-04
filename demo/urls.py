@@ -1,6 +1,8 @@
+from __future__ import print_function
 from django.conf.urls.defaults import *
 from django.contrib import admin
 from django.conf import settings
+
 
 admin.autodiscover()
 
@@ -9,7 +11,7 @@ urlpatterns = patterns('',
     url(r'^', include('cms.urls')),
 )
 
-print settings.STATIC_ROOT
+print(settings.STATIC_ROOT)
 if settings.DEBUG:
     urlpatterns = patterns('',
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
