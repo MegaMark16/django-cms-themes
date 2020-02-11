@@ -1,4 +1,4 @@
-Django==1.5.1
+Django==1.11.28
 South==0.8.1
 django-classy-tags==0.4
 django-cms==2.4.2
