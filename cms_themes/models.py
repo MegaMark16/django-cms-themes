@@ -18,7 +18,7 @@ class Theme(models.Model):
     theme_file = models.FileField(upload_to='themes_archives', null=True, blank=True)
     
     def save(self, *args, **kwargs):
-        if not self.id and not self.name:
+        if not (self.id or self.name):
             f = tarfile.open(fileobj=self.theme_file, mode='r:gz')
             self.name = f.getnames()[-1]
             f.extractall(settings.THEMES_DIR)
@@ -42,14 +42,14 @@ def delete_themes(sender, **kwargs):
     set_themes()
 
 def theme_site_m2m_changes(sender, **kwargs):
-    instance = kwargs['instance']
     action = kwargs['action']
     if action in ("post_add", "post_remove", "post_clear"):
+        instance = kwargs['instance']
         if type(instance) is Theme:
             for site in instance.sites.all():
                 for theme in site.theme_set.all():
                     if theme.id != instance.id:
-                        site.theme_set.remove(theme)        
+                        site.theme_set.remove(theme)
         set_themes()
 post_delete.connect(delete_themes, sender=Theme)
 m2m_changed.connect(theme_site_m2m_changes, sender=Theme.sites.through)

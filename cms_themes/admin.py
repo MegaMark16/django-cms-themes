@@ -13,7 +13,7 @@ class ThemeAdminForm(forms.ModelForm):
         cleaned_data = super(ThemeAdminForm, self).clean()
         name = cleaned_data.get("name")
         theme_file = cleaned_data.get("theme_file")
-        if not name and not theme_file:
+        if not (name or theme_file):
             # at least one of the fields have to be present
             raise forms.ValidationError(_('Choose at lease one of "Theme file" or "Name".'))
         return cleaned_data
